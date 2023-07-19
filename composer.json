@@ -1,0 +1,15 @@
+{
+    "name": "emmanuelvitor/payment-php",
+    "autoload": {
+        "psr-4": {
+            "Emmanuelvitor\\PaymentPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Emmanuel Vitor",
+            "email": "emmanuelvitor.ti@gmail.com"
+        }
+    ],
+    "require": {},
+}
