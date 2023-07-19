@@ -1,6 +1,6 @@
 <?php
 
-namespace Emmanuelvitor\PaymentPhp\Model;
+namespace PaymentPhp\Model;
 
 abstract class FormaDePagamento{
     protected $valor;

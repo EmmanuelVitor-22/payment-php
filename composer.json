@@ -2,7 +2,7 @@
     "name": "emmanuelvitor/payment-php",
     "autoload": {
         "psr-4": {
-            "Emmanuelvitor\\PaymentPhp\\": "src/"
+            "PaymentPhp\\": "src/"
         }
     },
     "authors": [

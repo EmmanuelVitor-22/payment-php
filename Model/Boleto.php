@@ -1,6 +1,6 @@
 <?php
 
-namespace Emmanuelvitor\PaymentPhp\Model;
+namespace PaymentPhp\Model;
 
 class Boleto extends FormaDePagamento
 {

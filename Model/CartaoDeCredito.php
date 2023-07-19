@@ -1,8 +1,8 @@
 <?php
 
 
-namespace Emmanuelvitor\PaymentPhp\Model;
-
+require "vendor/autoload.php";
+use PaymentPhp\Model\FormaDePagamento;
 
 class CartaoDeCredito extends FormaDePagamento
 {
@@ -12,14 +12,14 @@ class CartaoDeCredito extends FormaDePagamento
     private $parcelas;
     private $juros;
 
-
-    public function __construct($nomeTitular, $numeroDoCartao, $cvv, $valor, $parcelas=1,)
+    public function __construct($nomeTitular, $numeroDoCartao, $cvv, $valor, $parcelas=1)
     {
 
         $this->nomeTitular = $nomeTitular;
         $this->numeroDoCartao = $numeroDoCartao;
         $this->cvv = $cvv;
         $this->parcelas = $parcelas;
+        $this->juros = $parcelas > 6 ? 0.1 : 0;
         parent::__construct($valor) ;
     }
 
@@ -55,44 +55,30 @@ class CartaoDeCredito extends FormaDePagamento
     {
         $this->parcelas = $parcelas;
     }
-    public function verificarDados($numeroDoCartao, $cvv)
+    public function getJuros()
     {
-        if((strlen($numeroDoCartao) == 10) && (strlen($cvv) == 3) ){
-            return "dados validos";
-        }
-        return "Algum dado está invalido. Verifique as informações";
-
+        return $this->juros;
+    }
+    public function setJuros($juros)
+    {
+        $this->juros = $juros;
     }
 
-    public function parcelamento()
+    private function validaDados()
     {
-        if ($this->parcelas<=6){
-            return $this->valor /= $this->parcelas;
+      return ((strlen($this->nomeTitular !== null or $this->nomeTitular !== "")) &&
+              (strlen($this->numeroDoCartao) == 10) &&
+              (strlen($this->cvv) == 3));
 
-        }elseif ($this->parcelas > 6 && $this->parcelas<=12){
-            $juros = ($this->valor * 0.1);
-            return $this->valor /= $this->parcelas + $juros;
-        }
-        return "numero de parcelas excede";
-    }
-    public function valorAPagar($valor)
-    {
-        if ($this->getValor() != $valor){
-            return "O valor que você está tentando pagar " . $valor . " é diferente do que deve ser pago que é: ". $this->getValor();
-        }
-        return "Valor correto";
-    }
 
+    }
     public function operacaoDepagamento()
-    {
-        if ($this->verificarDados($this->getNumeroDoCartao(), $this->getCvv())){
-            if($this->valorAPagar($this->getValor())){
-                return "Pagamento efetuado com sucesso";
-            }else{
-                return "Valor a ser pago";
-            }
+    {   $valorFinalComJuros = $this->valor * (1 + $this->juros * $this->parcelas);
+        if ($this->validaDados()){
+            return "Pagamento com cartão de crédito de R$ " . number_format($valorFinalComJuros, 2) . " (x " . $this->parcelas . " parcelas) realizado com sucesso.";
+        } else {
+            return "O pagamento com cartão de crédito falhou. Por favor, verifique seus detalhes do cartão.";
 
         }
-
     }
 }
