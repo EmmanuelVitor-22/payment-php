@@ -17,50 +17,34 @@ class Boleto extends FormaDePagamento
         parent::__construct($valor);
         $this->valorAPagar=$valorAPagar;
     }
-
-    private function validaCodigo(){
-        return $this->codigoDeBarras = str_replace(" ", "", $this->codigoDeBarras);
-
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCodigoDeBarras()
     {
         return $this->codigoDeBarras;
     }
 
-    /**
-     * @return false|string
-     */
     public function getDataDeVencimento()
     {
         return $this->dataDeVencimento;
     }
 
-    /**
-     * @return false|string
-     */
     public function getDataAtual()
     {
         return $this->dataAtual;
     }
 
-    /**
-     * @return mixed
-     */
     public function getValorAPagar()
     {
         return $this->valorAPagar;
     }
-    public function validarDados()
-    {
-        return (($this->validaCodigo()===44) &&
-                ($this->dataAtual<=$this->dataDeVencimento) &&
-               ($this->valorAPagar === $this->valor));
+    private function validaCodigo(){
+        return str_replace(" ", "",$this->codigoDeBarras);
     }
-
+    private function validarDados()
+    {
+        return ((strlen($this->validaCodigo())===44) &&
+                ($this->dataAtual<=$this->dataDeVencimento) &&
+                ($this->valorAPagar === $this->valor));
+    }
 
     public function operacaoDepagamento()
     {
@@ -71,6 +55,5 @@ class Boleto extends FormaDePagamento
                     " e o valo que você disponibilizou para pagamento foi de " . $this->valorAPagar .
                     ". Por favor, disponibilize o valor correto.";
         }
-
     }
 }

@@ -57,7 +57,7 @@ class CartaoDeCredito extends FormaDePagamento
         return $this->juros;
     }
 
-    private function validaDados()
+    public function validaDados()
     {
         return ((strlen($this->nomeTitular !== null || $this->nomeTitular !== "")) &&
                 (strlen($this->numeroDoCartao) == 10) &&
