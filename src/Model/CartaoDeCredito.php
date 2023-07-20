@@ -65,7 +65,8 @@ class CartaoDeCredito extends FormaDePagamento
     }
 
     public function operacaoDePagamento()
-    {   $valorFinalComJuros = $this->valor * (1 + $this->juros * $this->parcelas);
+    {
+        $valorFinalComJuros = $this->valor * (1 + $this->juros * $this->parcelas);
         if ($this->validaDados()){
 
             return "Pagamento com cartão de crédito de R$ " . number_format($valorFinalComJuros, 2) . " (x " . $this->parcelas . " parcelas) realizado com sucesso.";
