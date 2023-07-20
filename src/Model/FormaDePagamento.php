@@ -9,7 +9,6 @@ abstract class FormaDePagamento{
     {
         $this->valor = $valor;
     }
-
     public function getValor()
     {
         return $this->valor;
@@ -18,7 +17,6 @@ abstract class FormaDePagamento{
     {
         $this->valor = $valor;
     }
-
-    public abstract function operacaoDepagamento();
+    public abstract function operacaoDePagamento();
 
 }

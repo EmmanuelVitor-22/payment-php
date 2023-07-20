@@ -1,8 +1,6 @@
 <?php
 
-
-require "vendor/autoload.php";
-use PaymentPhp\Model\FormaDePagamento;
+namespace PaymentPhp\Model;
 
 class CartaoDeCredito extends FormaDePagamento
 {
@@ -14,7 +12,6 @@ class CartaoDeCredito extends FormaDePagamento
 
     public function __construct($nomeTitular, $numeroDoCartao, $cvv, $valor, $parcelas=1)
     {
-
         $this->nomeTitular = $nomeTitular;
         $this->numeroDoCartao = $numeroDoCartao;
         $this->cvv = $cvv;
@@ -59,22 +56,18 @@ class CartaoDeCredito extends FormaDePagamento
     {
         return $this->juros;
     }
-    public function setJuros($juros)
-    {
-        $this->juros = $juros;
-    }
 
     private function validaDados()
     {
-      return ((strlen($this->nomeTitular !== null or $this->nomeTitular !== "")) &&
-              (strlen($this->numeroDoCartao) == 10) &&
-              (strlen($this->cvv) == 3));
-
-
+        return ((strlen($this->nomeTitular !== null || $this->nomeTitular !== "")) &&
+                (strlen($this->numeroDoCartao) == 10) &&
+                (strlen($this->cvv) == 3));
     }
-    public function operacaoDepagamento()
+
+    public function operacaoDePagamento()
     {   $valorFinalComJuros = $this->valor * (1 + $this->juros * $this->parcelas);
         if ($this->validaDados()){
+
             return "Pagamento com cartão de crédito de R$ " . number_format($valorFinalComJuros, 2) . " (x " . $this->parcelas . " parcelas) realizado com sucesso.";
         } else {
             return "O pagamento com cartão de crédito falhou. Por favor, verifique seus detalhes do cartão.";

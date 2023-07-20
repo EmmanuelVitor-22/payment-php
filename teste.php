@@ -1,10 +1,11 @@
 <?php
 
-use PaymentPhp\Model\CartaoDeCredito;
+use PaymentPhp\Model\TransferenciaBancaria;
+require_once __DIR__ . '/vendor/autoload.php';
 
-require "vendor/autoload.php";
 
-
-$pagamento = new CartaoDeCredito("Emmanuel", "1234567890","130", "123");
+$pagamento = new TransferenciaBancaria("134");
+//    = new CartaoDeCredito("Emmanuel", "1234567890", "1R6","145", "12");
 print_r($pagamento);
+print_r($pagamento->operacaoDepagamento());
 
