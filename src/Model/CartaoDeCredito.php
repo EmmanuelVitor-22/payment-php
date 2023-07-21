@@ -10,14 +10,14 @@ class CartaoDeCredito extends FormaDePagamento
     private $parcelas;
     private $juros;
 
-    public function __construct($nomeTitular, $numeroDoCartao, $cvv, $valor, $parcelas=1)
+    public function __construct($nomeTitular, $numeroDoCartao, $cvv,  $parcelas=1)
     {
         $this->nomeTitular = $nomeTitular;
         $this->numeroDoCartao = $numeroDoCartao;
         $this->cvv = $cvv;
         $this->parcelas = $parcelas;
         $this->juros = $parcelas > 6 ? 0.1 : 0;
-        parent::__construct($valor) ;
+        parent::__construct();
     }
 
     public function getNomeTitular()
@@ -69,9 +69,11 @@ class CartaoDeCredito extends FormaDePagamento
         $valorFinalComJuros = $this->valor * (1 + $this->juros * $this->parcelas);
         if ($this->validaDados()){
 
-            return "Pagamento com cartão de crédito de R$ " . number_format($valorFinalComJuros, 2) . " (x " . $this->parcelas . " parcelas) realizado com sucesso.";
+            return "Pagamento com cartão de crédito no total de R$ " . number_format($valorFinalComJuros, 2) . " em "
+                                                            . $this->parcelas . " parcelas) realizado com sucesso.";
         } else {
-            return "O pagamento com cartão de crédito falhou. Por favor, verifique seus detalhes do cartão.";
+            return "O pagamento com cartão de crédito falhou. 
+                    Por favor, verifique seus detalhes do cartão.";
 
         }
     }

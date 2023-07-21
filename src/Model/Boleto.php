@@ -9,13 +9,13 @@ class Boleto extends FormaDePagamento
     private  $dataAtual;
     private  $valorAPagar;
 
-    public function __construct($codigoDeBarras, $valor, $valorAPagar)
+    public function __construct($valorAPagar, $codigoDeBarras = "0019 337370000000100 05009 401448 16060680935031")
     {
         $this->codigoDeBarras = $codigoDeBarras;
         $this->dataAtual = date("d/m/Y");
         $this->dataDeVencimento = date("d/m/Y", strtotime("+1 month"));
-        parent::__construct($valor);
         $this->valorAPagar=$valorAPagar;
+        parent::__construct();
     }
     public function getCodigoDeBarras()
     {
