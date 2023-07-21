@@ -7,11 +7,11 @@ namespace PaymentPhp\Model;
     private $contaDestino;
     private $valorDeTranferencia;
 
-     public function __construct($contaDestino, $valorDeTranferencia, $valor="100" , $numeroContaDaEmpresa="")
+     public function __construct($contaDestino, $valorDeTranferencia)
      {
          $this->contaDestino = $contaDestino;
          $this->valorDeTranferencia = $valorDeTranferencia;
-         parent::__construct($valor,$numeroContaDaEmpresa);
+         parent::__construct();
 
      }
      public function getContaDestino()
@@ -33,7 +33,7 @@ namespace PaymentPhp\Model;
 
      public function validaDados()
      {
-         return (($this->contaDestino == $this->getNumeroContaDaEmpresa()) &&
+         return (($this->contaDestino == $this->contaDestino) &&
                  ($this->valorDeTranferencia == $this->valor));
 
      }
@@ -41,7 +41,7 @@ namespace PaymentPhp\Model;
      public function operacaoDePagamento()
      {
          if ($this->validaDados()){
-            return "Tranfercia efetuada. Pagamento realizado com sucesso.";
+            return "Pagamento por Tranfercia Bnacaria efetuado com sucesso.";
          }
          return "Erro ao tranferir/pagar a conta";
 

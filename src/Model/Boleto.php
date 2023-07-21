@@ -49,11 +49,12 @@ class Boleto extends FormaDePagamento
     public function operacaoDepagamento()
     {
         if($this->validarDados()){
-            return "Pagamento efetuado com sucesso";
+            return "Pagamento por Boleto efetuado com sucesso";
         }else{
-            return "Valor a ser pago " . $this->valor .
-                    " e o valo que você disponibilizou para pagamento foi de " . $this->valorAPagar .
-                    ". Por favor, disponibilize o valor correto.";
+            return "Houve algum problema e o pagamento por Boleto não efetuado com sucesso.";
+//                "Valor a ser pago " . $this->valor .
+//                    " e o valo que você disponibilizou para pagamento foi de " . $this->valorAPagar .
+//                    ". Por favor, disponibilize o valor correto.";
         }
     }
 }
